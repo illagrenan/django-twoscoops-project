@@ -1,11 +1,11 @@
 Django>=1.5.1
-Fabric>=1.6.1
-MySQL-python>=1.2.3
-South>=0.7.6
-Sphinx>=1.2b1
-distribute>=0.6.49
-django-bootstrap-form>=2.0.6
-django-celery>=3.0.17
-django-google-tools>=1.0.0
-django-grappelli>=2.4.5
-django-reset>=0.2.0
+Fabric
+# MySQL-python>=1.2.3
+# On Windows USE: pypm -E C:\Users\USERNAME\.virtualenvs\{{ project_name }} install mysql-python
+South
+distribute
+django-bootstrap-form
+django-celery
+django-google-tools
+django-grappelli
+django-reset
