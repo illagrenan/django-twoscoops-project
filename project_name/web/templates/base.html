@@ -1,0 +1,45 @@
+{% load url from future %}
+{% load staticfiles %}
+{% load googletools %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+
+    {% site_verification_code %}
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'public/style.css' %}">
+
+    {% analytics_code %}
+
+</head>
+<body>
+{% block body %}
+
+    {% if messages %}
+        <div>
+            <strong>Messages:</strong>
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+
+    {% include 'shared/menu.html' %}
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+{% endblock %}
+{% block extra_body %}
+{% endblock %}
+</body>
+</html>
