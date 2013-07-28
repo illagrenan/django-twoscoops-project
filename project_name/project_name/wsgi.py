@@ -16,6 +16,18 @@ framework.
 import os
 from os.path import abspath, dirname
 from sys import path
+import site
+import sys
+
+RUNNING_DEVSERVER = (len(sys.argv) > 1)
+
+if RUNNING_DEVSERVER is False:
+    # Add the virtual Python environment site-packages directory to the path
+    activate_this = os.path.expanduser("/opt/Envs/{{ project_name }}/bin/activate_this.py")
+    execfile(activate_this, dict(__file__=activate_this))
+
+    # Adjust the path below to point to the site-packages of your virtualenv.
+    site.addsitedir('/opt/Envs/{{ project_name }}/lib/python2.7/site-packages')
 
 SITE_ROOT = dirname(dirname(abspath(__file__)))
 path.append(SITE_ROOT)
@@ -30,6 +42,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.pro
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
+
 application = get_wsgi_application()
 
 # Apply WSGI middleware here.
