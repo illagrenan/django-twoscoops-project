@@ -25,12 +25,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'py_{{ project_name }}', # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'HOST': '127.0.01', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '', # Set to empty string for default.
     }
 }
 ########## END DATABASE CONFIGURATION
@@ -50,6 +51,21 @@ CACHES = {
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INSTALLED_APPS += (
     'debug_toolbar',
+    'djangosecure',
+)
+
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    # 'debug_toolbar.panels.profiling.ProfilingDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.cache.CacheDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
 )
 
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
@@ -58,6 +74,8 @@ INTERNAL_IPS = ('127.0.0.1',)
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'chromelogger.DjangoMiddleware',
+    'djangosecure.middleware.SecurityMiddleware',
 )
 
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
@@ -66,3 +84,5 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 ########## END TOOLBAR CONFIGURATION
+
+TEMPLATE_STRING_IF_INVALID = 'DEBUG WARNING: template variable [%s] is not defined'

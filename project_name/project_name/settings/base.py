@@ -58,10 +58,10 @@ DATABASES = {
 
 ########## GENERAL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'Europe/Prague'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'cs'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -176,6 +176,8 @@ ROOT_URLCONF = '%s.urls' % SITE_NAME
 
 ########## APP CONFIGURATION
 DJANGO_APPS = (
+    'grappelli',
+
     # Default Django apps:
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -195,6 +197,9 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
+    'bootstrapform',
+    'googletools',
+    'django_reset',
 )
 
 # Apps specific for this project go here.
@@ -242,4 +247,12 @@ LOGGING = {
 ########## WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'wsgi.application'
+########## END WSGI CONFIGURATION
+
+# ########## SECURITY
+# http://django-secure.readthedocs.org/en/v0.1.2/
+SESSION_COOKIE_SECURE = False
+SECURE_FRAME_DENY = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_HTTPONLY = True
 ########## END WSGI CONFIGURATION
